@@ -5,9 +5,9 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>org.ngphthinh</groupId>
-    <artifactId>thinh_23642651_w1</artifactId>
+    <artifactId>tuan02-bai02</artifactId>
     <version>1.0-SNAPSHOT</version>
-    <name>thinh_23642651_w1</name>
+    <name>tuan02-bai02</name>
     <packaging>war</packaging>
 
     <properties>
@@ -31,9 +31,21 @@
             <scope>test</scope>
         </dependency>
         <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter-engine</artifactId>
+            <version>${junit.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
             <groupId>jakarta.servlet.jsp.jstl</groupId>
             <artifactId>jakarta.servlet.jsp.jstl-api</artifactId>
             <version>3.0.2</version>
+        </dependency>
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>1.18.36</version>
+            <scope>compile</scope>
         </dependency>
 
         <dependency>
@@ -49,11 +61,10 @@
             <version>3.4.1</version>
         </dependency>
         <dependency>
-            <groupId>org.eclipse.angus</groupId>
-            <artifactId>angus-mail</artifactId>
-            <version>2.0.3</version>
+            <groupId>jakarta.annotation</groupId>
+            <artifactId>jakarta.annotation-api</artifactId>
+            <version>3.0.0</version>
         </dependency>
-
     </dependencies>
 
     <build>

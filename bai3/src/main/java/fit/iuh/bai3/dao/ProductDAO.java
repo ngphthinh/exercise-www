@@ -11,15 +11,14 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ProductDAO
-{
+public class ProductDAO {
     private DBUtil dbUtil;
 
-    public ProductDAO(DataSource dataSource){
+    public ProductDAO(DataSource dataSource) {
         dbUtil = new DBUtil(dataSource);
     }
 
-    public List<Product> getAllProduct(){
+    public List<Product> getAllProduct() {
         List<Product> products = new ArrayList<>();
         Connection connection = null;
         PreparedStatement preparedStatement = null;
@@ -29,19 +28,44 @@ public class ProductDAO
             preparedStatement = connection.prepareStatement("SELECT * FROM Product");
 
             resultSet = preparedStatement.executeQuery();
-            while (resultSet.next()){
+            while (resultSet.next()) {
                 products.add(Product.builder()
-                                .id(resultSet.getInt("id"))
-                                .model(resultSet.getString("model"))
-                                .price(resultSet.getDouble("price"))
-                                .quantity(resultSet.getInt("quantity"))
-                                .description(resultSet.getString("description"))
-
+                        .id(resultSet.getInt("id"))
+                        .model(resultSet.getString("model"))
+                        .price(resultSet.getDouble("price"))
+                        .quantity(resultSet.getInt("quantity"))
+                        .description(resultSet.getString("description"))
+                        .imgUrl(resultSet.getString("img"))
                         .build());
             }
             return products;
-        }catch (SQLException e){
+        } catch (SQLException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    public Product getById(int i) {
+        Connection connection = null;
+        PreparedStatement preparedStatement = null;
+        ResultSet resultSet = null;
+        try {
+            connection = dbUtil.getConnection();
+            preparedStatement = connection.prepareStatement("SELECT * FROM Product WHERE id = ?");
+            preparedStatement.setInt(1, i);
+            resultSet = preparedStatement.executeQuery();
+            if (resultSet.next()) {
+                return Product.builder()
+                        .id(resultSet.getInt("id"))
+                        .model(resultSet.getString("model"))
+                        .price(resultSet.getDouble("price"))
+                        .quantity(resultSet.getInt("quantity"))
+                        .description(resultSet.getString("description"))
+                        .imgUrl(resultSet.getString("img"))
+                        .build();
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return null;
     }
 }

@@ -1,9 +1,12 @@
 package fit.iuh.bai3.model;
 
+import lombok.Getter;
+
 import java.util.ArrayList;
 import java.util.List;
 
 public class CartBean {
+    @Getter
     private List<CartItemBean> cartItemBeans = new ArrayList<>();
 
     public void addToCart(Product product){

@@ -18,7 +18,7 @@ public class ProductServlet extends HttpServlet {
     private ProductDAO productDAO;
 
     @Resource(name="jdbc/storedb")
-    private DataSource dataSource;
+    private DataSource   dataSource;
 
     @Override
     public void init() throws ServletException {
@@ -27,6 +27,15 @@ public class ProductServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+
+        String id = req.getParameter("id");
+
+        if (id != null && !id.isEmpty()) {
+            req.setAttribute("product", productDAO.getById(Integer.parseInt(id)));
+            req.getRequestDispatcher("/detail.jsp").forward(req, resp);
+            return;
+        }
+
         req.setAttribute("products", productDAO.getAllProduct());
         req.getRequestDispatcher("/product.jsp").forward(req,resp);
 
